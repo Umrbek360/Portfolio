@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umrbek Obdullayev - Portfolio</title>
+    <meta name="description" content="Umrbek Obdullayev portfolio – IT Backend mutaxassisi, loyihalar va ko'nikmalar.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg-primary: #ffffff; --bg-secondary: #f8f9fa; --text-primary: #212529; --text-secondary: #6c757d; --accent: #0d6efd; --accent-hover: #0b5ed7; --border: #dee2e6; --section-bg: #e7f0ff; }
+        [data-theme="dark"] { --bg-primary: #1a1a1a; --bg-secondary: #2d2d2d; --text-primary: #e9ecef; --text-secondary: #adb5bd; --accent: #4dabf7; --accent-hover: #339af0; --border: #495057; --section-bg: #0f2747; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; transition: all 0.3s ease; }
+        .header { background: linear-gradient(135deg, #0d6efd 0%, #3b82f6 100%); padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; overflow: hidden; }
+        .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; gap: 1rem; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
+        .nav-links { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+        .nav-menu { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+        .nav-menu a { color: #ffffff; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav-menu a:hover { color: rgba(255,255,255,0.8); }
+        .nav-controls { display: flex; gap: 1rem; align-items: center; }
+        .lang-switcher, .theme-toggle { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; position: relative; min-width: 110px; text-align: center; }
+        .lang-switcher:hover, .theme-toggle:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
+        .lang-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: var(--bg-primary); color: var(--text-primary); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); min-width: 140px; z-index: 1000; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; border: 1px solid var(--border); overflow: hidden; }
+        .lang-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .lang-option { padding: 0.75rem 1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; }
+        .lang-option:hover { background: var(--accent); color: white; }
+        .lang-option.active { background: rgba(13,110,253,0.15); font-weight: 600; border-left: 3px solid var(--accent); }
+        .hero { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--accent), #6610f2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; }
+        .section { max-width: 1200px; margin: 3rem auto; padding: 2rem; background: var(--section-bg); border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: relative; z-index: 1; }
+        .section h2 { color: var(--accent); margin-bottom: 1.5rem; font-size: 2rem; border-bottom: 3px solid var(--accent); padding-bottom: 0.5rem; }
+        .blue-section { position: relative; background: linear-gradient(135deg, #0d6efd 0%, #3b82f6 100%); color: #ffffff; overflow: hidden; }
+        .blue-section h2 { color: #ffffff; border-bottom-color: rgba(255,255,255,0.6); }
+        .blue-section p { color: rgba(255,255,255,0.9); position: relative; z-index: 2; }
+        .bg-anim { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+        .bg-anim span { position: absolute; display: block; bottom: -150px; background: rgba(255,255,255,0.18); border-radius: 50%; filter: blur(0.5px); animation: floatUp linear infinite; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; } }
+        .bg-anim span:nth-child(1) { left: 5%; width: 20px; height: 20px; animation-duration: 18s; animation-delay: 0s; }
+        .bg-anim span:nth-child(2) { left: 15%; width: 35px; height: 35px; animation-duration: 22s; animation-delay: 2s; }
+        .bg-anim span:nth-child(3) { left: 28%; width: 12px; height: 12px; animation-duration: 16s; animation-delay: 4s; }
+        .bg-anim span:nth-child(4) { left: 40%; width: 28px; height: 28px; animation-duration: 25s; animation-delay: 1s; }
+        .bg-anim span:nth-child(5) { left: 52%; width: 18px; height: 18px; animation-duration: 19s; animation-delay: 3s; }
+        .bg-anim span:nth-child(6) { left: 63%; width: 42px; height: 42px; animation-duration: 27s; animation-delay: 0.5s; }
+        .bg-anim span:nth-child(7) { left: 72%; width: 14px; height: 14px; animation-duration: 17s; animation-delay: 1.5s; }
+        .bg-anim span:nth-child(8) { left: 81%; width: 26px; height: 26px; animation-duration: 23s; animation-delay: 2.5s; }
+        .bg-anim span:nth-child(9) { left: 90%; width: 16px; height: 16px; animation-duration: 20s; animation-delay: 3.5s; }
+        .bg-anim span:nth-child(10) { left: 48%; width: 10px; height: 10px; animation-duration: 15s; animation-delay: 1.2s; }
+        .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .skill-card { background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent); transition: transform 0.3s; }
+        .skill-card:hover { transform: translateX(10px); }
+        .skill-card a { display: inline-block; margin-top: 0.5rem; color: var(--accent); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .skill-card a:hover { color: var(--accent-hover); text-decoration: underline; }
+        .contact-info { display: flex; flex-direction: column; gap: 1rem; font-size: 1.1rem; }
+        .contact-item { display: flex; align-items: center; gap: 1rem; }
+        .contact-item svg { width: 24px; height: 24px; fill: var(--accent); flex-shrink: 0; }
+        .contact-item a { color: var(--text-primary); text-decoration: none; transition: color 0.3s; }
+        .contact-item a:hover { color: var(--accent); }
+        footer { text-align: center; padding: 2rem; background: var(--bg-secondary); margin-top: 3rem; color: var(--text-secondary); }
+        .contact-form { margin-top: 2rem; display: grid; gap: 1rem; }
+        .contact-form label { font-weight: 600; color: var(--text-primary); display: block; margin-bottom: 0.25rem; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary); outline: none; transition: border-color 0.2s, box-shadow 0.2s; font-family: inherit; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(13,110,253,0.15); }
+        .contact-form textarea { min-height: 140px; resize: vertical; }
+        .contact-form button { width: fit-content; background: var(--accent); color: #fff; border: none; padding: 0.75rem 1.25rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: background 0.2s, transform 0.1s; font-size: 1rem; }
+        .contact-form button:hover { background: var(--accent-hover); }
+        .contact-form button:active { transform: translateY(1px); }
+        .form-note { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; }
+        .toast { position: fixed; right: 16px; bottom: 16px; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 0.75rem 1rem; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 0.25s, transform 0.25s; z-index: 1000; max-width: 300px; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .nav { flex-direction: column; align-items: flex-start; }
+            .nav-links { width: 100%; flex-direction: column; gap: 1rem; }
+            .nav-menu { flex-direction: column; gap: 0.5rem; width: 100%; }
+            .nav-menu li { width: 100%; }
+            .nav-menu a { display: block; padding: 0.5rem 0; }
+            .nav-controls { width: 100%; justify-content: space-between; }
+            .skills { grid-template-columns: 1fr; }
+            .section { padding: 1.5rem; margin: 2rem 1rem; }
+            .hero { margin: 2rem auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="bg-anim" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <nav class="nav">
+            <div class="logo">Umrbek Obdullayev</div>
+            <div class="nav-links">
+                <ul class="nav-menu">
+                    <li><a href="#about" id="navAbout">Men haqimda</a></li>
+                    <li><a href="#skills" id="navSkills">Ko'nikmalar</a></li>
+                    <li><a href="#languages" id="navLanguages">Tillar</a></li>
+                    <li><a href="#certificates" id="navCertificates">Sertifikatlar</a></li>
+                    <li><a href="#projects" id="navProjects">Loyihalar</a></li>
+                    <li><a href="#contact" id="navContact">Bog'lanish</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <div class="lang-switcher" onclick="toggleLangDropdown()">
+                        <span id="langBtn">🇺🇿 O'zbek</span>
+                        <div class="lang-dropdown" id="langDropdown">
+                            <div class="lang-option active" onclick="selectLang('uz', event)" data-lang="uz">🇺🇿 O'zbek</div>
+                            <div class="lang-option" onclick="selectLang('en', event)" data-lang="en">🇬🇧 English</div>
+                            <div class="lang-option" onclick="selectLang('ru', event)" data-lang="ru">🇷🇺 Русский</div>
+                        </div>
+                    </div>
+                    <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span></button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1 id="heroName">Umrbek Obdullayev</h1>
+            <p id="heroDesc">IT Park talabasi | IT Backend mutaxassisi</p>
+        </section>
+
+        <section class="section blue-section" id="about">
+            <div class="bg-anim" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <h2 id="aboutTitle">Men haqimda</h2>
+            <p id="aboutText">Men Umrbek Obdullayev, IT Parkda o'qiyapman. Mening asosiy qiziqishim IT Backend sohasidir. Dasturlash va zamonaviy texnologiyalar bilan ishlashni yaxshi ko'raman.</p>
+        </section>
+
+        <section class="section" id="skills">
+            <h2 id="skillsTitle">Ko'nikmalar</h2>
+            <div class="skills">
+                <div class="skill-card">
+                    <h3>🐍 Python</h3>
+                    <p id="skill1">To'liq funksional dasturlash - server va bot dasturlash</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🤖 Aiogram</h3>
+                    <p id="skill2">Telegram botlar yaratish va rivojlantirish</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🌐 HTML</h3>
+                    <p id="skill3">Veb sahifalar strukturasi va semantik markup</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🎨 CSS</h3>
+                    <p id="skill4">Veb dizayn, animatsiyalar va responsive layout</p>
+                </div>
+                <div class="skill-card">
+                    <h3>⚙️ Backend Development</h3>
+                    <p id="skill5">Server tomonidagi dasturlash va ma'lumotlar bazasi</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📚 IT Park</h3>
+                    <p id="skill6">Zamonaviy texnologiyalar va dasturlash tillarini o'rganish</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="languages">
+            <h2 id="languagesTitle">Tillar</h2>
+            <div class="skills">
+                <div class="skill-card">
+                    <h3>🇺🇿 O'zbek</h3>
+                    <p id="lang1">Ona tili</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🇬🇧 English</h3>
+                    <p id="lang2">Yuqori daraja</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🇷🇺 Русский</h3>
+                    <p id="lang3">Boshlang'ich daraja</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="certificates">
+            <h2 id="certificatesTitle">Sertifikatlar</h2>
+            <div class="skills">
+                <div class="skill-card">
+                    <h3>🎓 Coursera</h3>
+                    <p id="cert1">Professional sertifikatlar va kurslar</p>
+                    <a href="https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~GYBXNN60CCYB/CERTIFICATE_LANDING_PAGE~GYBXNN60CCYB.jpeg" target="_blank" rel="noopener">Sertifikatni ko'rish →</a>
+                </div>
+                <div class="skill-card">
+                    <h3>📚 IT Park</h3>
+                    <p id="cert2">Dasturlash va texnologiya kurslari</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🏆 Online Learning</h3>
+                    <p id="cert3">Zamonaviy texnologiyalar bo'yicha sertifikatlar</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <h2 id="projectsTitle">Loyihalar</h2>
+            <div class="skills">
+                <div class="skill-card">
+                    <h3>🤖 ShutupBot</h3>
+                    <p id="project1">Telegram bot loyihasi</p>
+                    <a href="https://github.com/Umrbek360/ShutupBot" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+                <div class="skill-card">
+                    <h3>🧪 TestBot</h3>
+                    <p id="project2">Test uchun bot loyihasi</p>
+                    <a href="https://github.com/Umrbek360/TestBot" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+                <div class="skill-card">
+                    <h3>💻 NOTEBOOK_SHOP</h3>
+                    <p id="project3">Noutbuk do'koni veb ilovasi</p>
+                    <a href="https://github.com/Umrbek360/NOTEBOOK_SHOP" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <h2 id="contactTitle">Bog'lanish</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 15.5c-1.2 0-2.4-.2-3.5-.6-.3-.1-.7 0-1 .2l-2.2 2.2c-2.8-1.4-5.1-3.8-6.6-6.6l2.2-2.2c.3-.3.4-.7.2-1-.3-1.1-.5-2.3-.5-3.5 0-.6-.4-1-1-1H4c-.6 0-1 .4-1 1 0 9.4 7.6 17 17 17 .6 0 1-.4 1-1v-3.5c0-.6-.4-1-1-1z"/></svg>
+                    <a href="tel:+998883608285">+998 88 360 82 85</a>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg>
+                    <span>IT Park, Xorazm</span>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <a href="https://www.instagram.com/o.umrbek_oo8?igsh=b2xjMmxyY3dtbWVk" target="_blank" rel="noopener">@o.umrbek_oo8</a>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.61 3.73-.53.37-.92.56-1.18.56-.39-.01-1.14-.22-1.69-.4-.68-.23-1.22-.35-1.17-.75.03-.21.37-.42.99-.64 3.87-1.69 6.46-2.81 7.77-3.34 3.7-1.54 4.47-1.81 4.97-1.82.11 0 .36.03.52.16.14.11.17.26.19.37.01.06.03.24.01.38z"/></svg>
+                    <a href="https://t.me/o_umrbek_008" target="_blank" rel="noopener">@o_umrbek_008</a>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <a href="https://github.com/Umrbek360" target="_blank" rel="noopener">Umrbek360</a>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div>
+                    <label for="fullName" id="fullNameLabel">To'liq ism</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Ismingiz va familiyangiz" required>
+                </div>
+                <div>
+                    <label for="email" id="emailLabel">Elektron pochta</label>
+                    <input type="email" id="email" name="email" placeholder="example@mail.com" required>
+                </div>
+                <div>
+                    <label for="message" id="messageLabel">Xabar</label>
+                    <textarea id="message" name="message" placeholder="Xabaringizni yozing" required></textarea>
+                </div>
+                <button type="submit" id="sendBtn">Xabarni yuborish</button>
+                <div class="form-note" id="formNote">Yuborilganda sizga pastda bildirishnoma ko'rinadi.</div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Umrbek Obdullayev. <span id="footerText">Barcha huquqlar himoyalangan.</span></p>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const translations = {
+            uz: {
+                heroName: "Umrbek Obdullayev",
+                heroDesc: "IT Park talabasi | IT Backend mutaxassisi",
+                navAbout: "Men haqimda",
+                navSkills: "Ko'nikmalar",
+                navLanguages: "Tillar",
+                navCertificates: "Sertifikatlar",
+                navProjects: "Loyihalar",
+                navContact: "Bog'lanish",
+                aboutTitle: "Men haqimda",
+                aboutText: "Men Umrbek Obdullayev, IT Parkda o'qiyapman. Mening asosiy qiziqishim IT Backend sohasidir. Dasturlash va zamonaviy texnologiyalar bilan ishlashni yaxshi ko'raman.",
+                skillsTitle: "Ko'nikmalar",
+                skill1: "To'liq funksional dasturlash - server va bot dasturlash",
+                skill2: "Telegram botlar yaratish va rivojlantirish",
+                skill3: "Veb sahifalar strukturasi va semantik markup",
+                skill4: "Veb dizayn, animatsiyalar va responsive layout",
+                skill5: "Server tomonidagi dasturlash va ma'lumotlar bazasi",
+                skill6: "Zamonaviy texnologiyalar va dasturlash tillarini o'rganish",
+                languagesTitle: "Tillar",
+                lang1: "Ona tili",
+                lang2: "Yuqori daraja",
+                lang3: "Boshlang'ich daraja",
+                certificatesTitle: "Sertifikatlar",
+                cert1: "Professional sertifikatlar va kurslar",
+                cert2: "Dasturlash va texnologiya kurslari",
+                cert3: "Zamonaviy texnologiyalar bo'yicha sertifikatlar",
+                projectsTitle: "Loyihalar",
+                project1: "Telegram bot loyihasi",
+                project2: "Test uchun bot loyihasi",
+                project3: "Noutbuk do'koni veb ilovasi",
+                contactTitle: "Bog'lanish",
+                fullNameLabel: "To'liq ism",
+                emailLabel: "Elektron pochta",
+                messageLabel: "Xabar",
+                sendBtn: "Xabarni yuborish",
+                formNote: "Yuborilganda sizga pastda bildirishnoma ko'rinadi.",
+                footerText: "Barcha huquqlar himoyalangan."
+            },
+            en: {
+                heroName: "Umrbek Obdullayev",
+                heroDesc: "IT Park Student | IT Backend Specialist",
+                navAbout: "About",
+                navSkills: "Skills",
+                navLanguages: "Languages",
+                navCertificates: "Certificates",
+                navProjects: "Projects",
+                navContact: "Contact",
+                aboutTitle: "About Me",
+                aboutText: "I am Umrbek Obdullayev, studying at IT Park. My main interest is IT Backend development. I enjoy programming and working with modern technologies.",
+                skillsTitle: "Skills",
+                skill1: "Full-stack programming - server and bot development",
+                skill2: "Creating and developing Telegram bots",
+                skill3: "Web page structure and semantic markup",
+                skill4: "Web design, animations and responsive layout",
+                skill5: "Server-side programming and database management",
+                skill6: "Learning modern technologies and programming languages",
+                languagesTitle: "Languages",
+                lang1: "Native",
+                lang2: "Advanced",
+                lang3: "Basic",
+                certificatesTitle: "Certificates",
+                cert1: "Professional certificates and courses",
+                cert2: "Programming and technology courses",
+                cert3: "Modern technology certificates",
+                projectsTitle: "Projects",
+                project1: "Telegram bot project",
+                project2: "Test bot project",
+                project3: "Notebook shop web application",
+                contactTitle: "Contact",
+                fullNameLabel: "Full Name",
+                emailLabel: "Email",
+                messageLabel: "Message",
+                sendBtn: "Send Message",
+                formNote: "You will see a notification below when sent.",
+                footerText: "All rights reserved."
+            },
+            ru: {
+                heroName: "Умрбек Обдуллаев",
+                heroDesc: "Студент IT Park | Специалист по IT Backend",
+                navAbout: "Обо мне",
+                navSkills: "Навыки",
+                navLanguages: "Языки",
+                navCertificates: "Сертификаты",
+                navProjects: "Проекты",
+                navContact: "Контакты",
+                aboutTitle: "Обо мне",
+                aboutText: "Я Умрбек Обдуллаев, учусь в IT Park. Моё основное увлечение - IT Backend разработка. Мне нравится программирование и работа с современными технологиями.",
+                skillsTitle: "Навыки",
+                skill1: "Полнофункциональное программирование - сервер и боты",
+                skill2: "Создание и разработка Telegram ботов",
+                skill3: "Структура веб-страниц и семантическая разметка",
+                skill4: "Веб-дизайн, анимации и адаптивная верстка",
+                skill5: "Серверное программирование и работа с базами данных",
+                skill6: "Изучение современных технологий и языков программирования",
+                languagesTitle: "Языки",
+                lang1: "Родной",
+                lang2: "Продвинутый",
+                lang3: "Базовый",
+                certificatesTitle: "Сертификаты",
+                cert1: "Профессиональные сертификаты и курсы",
+                cert2: "Курсы программирования и технологий",
+                cert3: "Сертификаты по современным технологиям",
+                projectsTitle: "Проекты",
+                project1: "Проект Telegram бота",
+                project2: "Тестовый бот проект",
+                project3: "Веб-приложение магазина ноутбуков",
+                contactTitle: "Контакты",
+                fullNameLabel: "Полное имя",
+                emailLabel: "Электронная почта",
+                messageLabel: "Сообщение",
+                sendBtn: "Отправить сообщение",
+                formNote: "При отправке вы увидите уведомление внизу.",
+                footerText: "Все права защищены."
+            }
+        };
+
+        let currentLang = 'uz';
+        let currentTheme = 'light';
+
+        function toggleLangDropdown() {
+            document.getElementById('langDropdown').classList.toggle('show');
+        }
+
+        function selectLang(lang, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+
+            currentLang = lang;
+            const trans = translations[lang];
+
+            // Barcha matnlarni yangilash
+            Object.keys(trans).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = trans[key];
+                    } else {
+                        element.textContent = trans[key];
+                    }
+                }
+            });
+
+            // Active holatni o'zgartirish
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.lang === lang) {
+                    option.classList.add('active');
+                }
+            });
+
+            // Til tugmasini yangilash
+            const langNames = {
+                'uz': '🇺🇿 O\'zbek',
+                'en': '🇬🇧 English',
+                'ru': '🇷🇺 Русский'
+            };
+            document.getElementById('langBtn').textContent = langNames[lang];
+
+            // Placeholderlarni yangilash
+            const placeholders = {
+                uz: {
+                    fullName: "Ismingiz va familiyangiz",
+                    email: "example@mail.com",
+                    message: "Xabaringizni yozing"
+                },
+                en: {
+                    fullName: "Your first and last name",
+                    email: "example@mail.com",
+                    message: "Write your message"
+                },
+                ru: {
+                    fullName: "Ваше имя и фамилия",
+                    email: "example@mail.com",
+                    message: "Напишите ваше сообщение"
+                }
+            };
+
+            const fullNameInput = document.getElementById('fullName');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            if (fullNameInput) fullNameInput.placeholder = placeholders[lang].fullName;
+            if (emailInput) emailInput.placeholder = placeholders[lang].email;
+            if (messageInput) messageInput.placeholder = placeholders[lang].message;
+
+            // Dropdownni yopish
+            document.getElementById('langDropdown').classList.remove('show');
+
+            // HTML lang atributini yangilash
+            document.documentElement.lang = lang;
+        }
+
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('langDropdown');
+            const switcher = document.querySelector('.lang-switcher');
+            if (!switcher.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            document.getElementById('themeIcon').textContent = currentTheme === 'light' ? '🌙' : '☀️';
+        }
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            toggleTheme();
+        }
+
+        const form = document.getElementById('contactForm');
+        const toast = document.getElementById('toast');
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function isValidEmail(value) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+
+            const nameOk = fullName.value.trim().length >= 3;
+            const emailOk = isValidEmail(email.value.trim());
+            const msgOk = message.value.trim().length >= 5;
+
+            const messages = {
+                uz: {
+                    nameError: "Iltimos, to'liq ismingizni kiriting",
+                    emailError: "Iltimos, to'g'ri email kiriting",
+                    msgError: "Iltimos, kamida 5 ta belgi yozing",
+                    success: "Xabar yuborildi! Tez orada sizga xabar beramiz."
+                },
+                en: {
+                    nameError: "Please enter your full name",
+                    emailError: "Please enter a valid email",
+                    msgError: "Please write at least 5 characters",
+                    success: "Message sent! We will contact you soon."
+                },
+                ru: {
+                    nameError: "Пожалуйста, введите ваше полное имя",
+                    emailError: "Пожалуйста, введите правильный email",
+                    msgError: "Пожалуйста, напишите минимум 5 символов",
+                    success: "Сообщение отправлено! Мы скоро с вами свяжемся."
+                }
+            };
+
+            if (!nameOk) {
+                fullName.focus();
+                showToast(messages[currentLang].nameError);
+                return;
+            }
+
+            if (!emailOk) {
+                email.focus();
+                showToast(messages[currentLang].emailError);
+                return;
+            }
+
+            if (!msgOk) {
+                message.focus();
+                showToast(messages[currentLang].msgError);
+                return;
+            }
+
+            showToast(messages[currentLang].success);
+            form.reset();
+        });
+    </script>
+</body>
+</html>
