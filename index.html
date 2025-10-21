@@ -10,7 +10,7 @@
         :root { --bg-primary: #ffffff; --bg-secondary: #f8f9fa; --text-primary: #212529; --text-secondary: #6c757d; --accent: #0d6efd; --accent-hover: #0b5ed7; --border: #dee2e6; --section-bg: #e7f0ff; }
         [data-theme="dark"] { --bg-primary: #1a1a1a; --bg-secondary: #2d2d2d; --text-primary: #e9ecef; --text-secondary: #adb5bd; --accent: #4dabf7; --accent-hover: #339af0; --border: #495057; --section-bg: #0f2747; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; transition: all 0.3s ease; }
-        .header { background: linear-gradient(135deg, #0d6efd 0%, #3b82f6 100%); padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; overflow: hidden; }
+        .header { background: linear-gradient(135deg, #0d6efd 0%, #3b82f6 100%); padding: 1rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; overflow: visible; }
         .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
         .nav-links { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
@@ -18,9 +18,10 @@
         .nav-menu a { color: #ffffff; text-decoration: none; font-weight: 500; transition: color 0.3s; }
         .nav-menu a:hover { color: rgba(255,255,255,0.8); }
         .nav-controls { display: flex; gap: 1rem; align-items: center; }
-        .lang-switcher, .theme-toggle { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; position: relative; min-width: 110px; text-align: center; }
+        .lang-switcher { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; position: relative; min-width: 110px; text-align: center; }
+        .theme-toggle { background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; position: relative; min-width: 70px; text-align: center; }
         .lang-switcher:hover, .theme-toggle:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
-        .lang-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: var(--bg-primary); color: var(--text-primary); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.2); min-width: 140px; z-index: 1000; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; border: 1px solid var(--border); overflow: hidden; }
+        .lang-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: var(--bg-primary); color: var(--text-primary); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); min-width: 160px; z-index: 10000; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; border: 1px solid var(--border); overflow: hidden; }
         .lang-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
         .lang-option { padding: 0.75rem 1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; }
         .lang-option:hover { background: var(--accent); color: white; }
@@ -68,8 +69,8 @@
         .form-note { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; }
         .toast { position: fixed; right: 16px; bottom: 16px; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border); border-left: 4px solid var(--accent); padding: 0.75rem 1rem; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 0.25s, transform 0.25s; z-index: 1000; max-width: 300px; }
         .toast.show { opacity: 1; transform: translateY(0); }
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
+        @media (max-width: 768px) { 
+            .hero h1 { font-size: 2rem; } 
             .nav { flex-direction: column; align-items: flex-start; }
             .nav-links { width: 100%; flex-direction: column; gap: 1rem; }
             .nav-menu { flex-direction: column; gap: 0.5rem; width: 100%; }
@@ -262,7 +263,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2008 Nomalum. <span id="footerText">Barcha huquqlar himoyalanmagan.</span></p>
+        <p>&copy; 2025 Umrbek Obdullayev. <span id="footerText">Barcha huquqlar himoyalangan.</span></p>
     </footer>
 
     <div class="toast" id="toast"></div>
@@ -389,17 +390,19 @@
         let currentTheme = 'light';
 
         function toggleLangDropdown() {
-            document.getElementById('langDropdown').classList.toggle('show');
+            const dropdown = document.getElementById('langDropdown');
+            dropdown.classList.toggle('show');
+            console.log('Dropdown toggled:', dropdown.classList.contains('show'));
         }
 
         function selectLang(lang, event) {
             if (event) {
                 event.stopPropagation();
             }
-
+            
             currentLang = lang;
             const trans = translations[lang];
-
+            
             // Barcha matnlarni yangilash
             Object.keys(trans).forEach(key => {
                 const element = document.getElementById(key);
@@ -457,7 +460,7 @@
 
             // Dropdownni yopish
             document.getElementById('langDropdown').classList.remove('show');
-
+            
             // HTML lang atributini yangilash
             document.documentElement.lang = lang;
         }
